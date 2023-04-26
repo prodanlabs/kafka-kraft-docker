@@ -21,7 +21,7 @@ docker run --name kafka-0 -d  \
 prodan/kafka-kraft:2.13-3.4.0-jdk17
 ```
 run on docker compose 
-```
+```sh
 # install docker compose plugin
 apt install docker-compose-plugin
 
@@ -41,3 +41,18 @@ git clone https://github.com/prodanlabs/kafka-kraft-docker.git
 kubectl create -f kafka-kraft-docker/examples/kubernetes/statefulset.yaml
 ```
 
+#### Docker buildx
+```sh
+# Installing emulators
+docker run --privileged --rm tonistiigi/binfmt --install all
+
+# Create a new builder instance
+docker buildx create --use --name kafka-builder
+
+# If a builder instance is also created, you can view and set the current builder instance
+docker buildx ls
+docker buildx use  <name>
+
+# Start a build 
+docker buildx build --platform linux/arm64,linux/amd64 -t  <image-name> . --push
+```
