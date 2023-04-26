@@ -48,8 +48,6 @@ spec:
     spec:
       containers:
         - env:
-            - name: BITNAMI_DEBUG
-              value: "false"
             - name: KAFKA_CFG_ADVERTISED_LISTENERS
               value: PLAINTEXT://${POD_NAME}.kafka-headless.default.svc.cluster.local:9092
             - name: KAFKA_CFG_CONTROLLER_QUORUM_VOTERS
@@ -89,7 +87,7 @@ spec:
             - name: KAFKA_CFG_NUM_NETWORK_THREADS
               value: "6"
             - name: KAFKA_CFG_NUM_PARTITIONS
-              value: "4"
+              value: "3"
             - name: KAFKA_CFG_NUM_RECOVERY_THREADS_PER_DATA_DIR
               value: "1"
             - name: KAFKA_CFG_OFFSETS_RETENTION_RETENTION_MS
@@ -115,7 +113,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.name
-          image: docker.io/prodan/kafka-kraft:2.13-3.1.2-jdk17
+          image: docker.io/prodan/kafka-kraft:2.13-3.4.0-jdk17
           imagePullPolicy: IfNotPresent
           name: kafka
           ports:

@@ -1,0 +1,44 @@
+version: "3.9"
+services:
+  kafka-0:
+    container_name: kafka-0
+    hostname: kafka-0
+    image: prodan/kafka-kraft:2.13-3.4.0-jdk17
+#    ports:
+#      - 19090:9092
+    environment:
+      - POD_NAME=kafka-0
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9093,1@kafka-1:9093,2@kafka-2:9093
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+  kafka-1:
+    container_name: kafka-1
+    hostname: kafka-1
+    image: prodan/kafka-kraft:2.13-3.4.0-jdk17
+#    ports:
+#      - 19091:9092
+    environment:
+      - POD_NAME=kafka-1
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9093,1@kafka-1:9093,2@kafka-2:9093
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+  kafka-2:
+    container_name: kafka-2
+    hostname: kafka-2
+    image: prodan/kafka-kraft:2.13-3.4.0-jdk17
+#    ports:
+#      - 19092:9092
+    environment:
+      - POD_NAME=kafka-2
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka-0:9093,1@kafka-1:9093,2@kafka-2:9093
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true

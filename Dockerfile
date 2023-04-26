@@ -1,7 +1,7 @@
 FROM docker.io/library/openjdk:17-jdk
 LABEL maintainer "prodan"
 
-ENV KAFKA_VERSION="3.1.2" \
+ENV KAFKA_VERSION="3.4.0" \
     SCALA_VERSION="2.13"
 
 RUN groupadd -r kafka && useradd --no-log-init -r -g kafka kafka
@@ -13,7 +13,8 @@ RUN cd /opt \
     && mkdir kafka /var/lib/kafka \
     && tar -zxvf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz -C ./kafka --strip-components 1 \
     && chown kafka.kafka -R kafka /var/lib/kafka \
-    && rm -rf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
+    && rm -rf kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz \
+    && chmod +x /docker-entrypoint.sh
 
 EXPOSE 9092 9093
 

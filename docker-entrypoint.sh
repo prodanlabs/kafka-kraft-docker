@@ -36,11 +36,10 @@ fi
 
 export KAFKA_CFG_NODE_ID="${POD_NAME##*-}"
 
-ID="${POD_NAME##*-}"
 if [[ -f "${KAFKA_CFG_LOG_DIRS}/meta.properties" ]]; then
     export KAFKA_CFG_BROKER_ID="$(grep "node.id" ${KAFKA_CFG_LOG_DIRS}/meta.properties | awk -F '=' '{print $2}')"
 else
-    export KAFKA_CFG_BROKER_ID="${ID}"
+    export KAFKA_CFG_BROKER_ID="${KAFKA_CFG_NODE_ID}"
 fi
 
 
